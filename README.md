@@ -36,7 +36,8 @@ For more, see tests or example folders
 - [x] Queue
 - [x] Dequeue
 - [x] Singly Linked List
-- [ ] Tree
+- [ ] Doubly Linked List
+- [ ] Binary Tree
 
 ## Install (Per 0.14 beta)
 
