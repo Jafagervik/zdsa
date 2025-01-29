@@ -6,7 +6,7 @@ cover:
     @zig build cover
 
 test:
-    @zig build cover
+    @zig build test
 
 build:
     @zig build
