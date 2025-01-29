@@ -4,10 +4,16 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    // ==============================
+    //  Export one module as zdsa
+    // ==============================
     _ = b.addModule("zdsa", .{
         .root_source_file = b.path("src/zdsa.zig"),
     });
 
+    // ==============================
+    //  Tests
+    // ==============================
     const lib_unit_tests = b.addTest(.{
         .root_source_file = b.path("src/zdsa.zig"),
         .target = target,
@@ -19,7 +25,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_lib_unit_tests.step);
 
     // ==============================
-    //  Cover tester
+    //  Cover
     // ==============================
     const run_cover = b.addSystemCommand(&.{
         "kcov",
