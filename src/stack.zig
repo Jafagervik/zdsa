@@ -27,8 +27,8 @@ pub fn Stack(comptime T: type) type {
             self.data.deinit();
         }
 
-        /// Adds to the top of the stack
-        pub fn add(self: *Self, value: T) !void {
+        /// Pushes to the top of the stack
+        pub fn push(self: *Self, value: T) !void {
             try self.data.append(value);
         }
 
@@ -64,9 +64,9 @@ test "Stack" {
     var stack = Stack(i32).init(allocator);
     defer stack.deinit();
 
-    try stack.add(1);
-    try stack.add(2);
-    try stack.add(3);
+    try stack.push(1);
+    try stack.push(2);
+    try stack.push(3);
 
     try t.expectEqual(3, stack.size());
 
@@ -99,7 +99,7 @@ test "from" {
 
     try t.expectEqual(3, stack.size());
 
-    try stack.add(4);
+    try stack.push(4);
 
     try t.expectEqual(4, stack.size());
 }

@@ -20,9 +20,9 @@ pub fn main() !void {
     var stack = Stack(i32).init(allocator);
     defer stack.deinit();
 
-    try stack.add(1);
-    try stack.add(2);
-    try stack.add(3);
+    try stack.push(1);
+    try stack.push(2);
+    try stack.push(3);
 
     const popped = try stack.pop();
 
