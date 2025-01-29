@@ -43,7 +43,7 @@ For more, see tests or example folders
 Run this command in the parent directory of your project
 
 ```sh
-zig fetch --save https://github.com/Jafagervik/zdsa/tarball/v0.3.0
+zig fetch --save https://github.com/Jafagervik/zdsa/tarball/v0.4.0
 ```
 
 Or alternatively use master or another version
