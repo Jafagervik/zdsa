@@ -33,7 +33,7 @@ For more, see tests or example folders
 ## Road to 1.0
 
 - [x] Stack
-- [ ] Queue
+- [x] Queue
 - [ ] Dequeue
 - [ ] Tree
 
