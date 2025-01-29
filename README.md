@@ -34,6 +34,7 @@ For more, see tests or example folders
 
 - [x] Stack
 - [x] Queue
+- [ ] Priority Queue
 - [x] Dequeue
 - [x] Singly Linked List
 - [ ] Doubly Linked List
