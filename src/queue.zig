@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 
-pub fn Stack(comptime T: type) type {
+pub fn Queue(comptime T: type) type {
     return struct {
         const Self = @This();
 
@@ -32,17 +32,11 @@ pub fn Stack(comptime T: type) type {
             try self.data.append(value);
         }
 
-        /// Pops last element of the list
+        /// Pops the front element of the list
         /// If the stack is already empty, return null
         pub fn pop(self: *Self) !T {
             if (self.size() < 1) return error.StackEmpty;
-            return self.data.pop();
-        }
-
-        /// Returns the top of the stack without removing it
-        pub inline fn top(self: *Self) !T {
-            if (self.size() < 1) return error.StackEmpty;
-            return self.data.getLast();
+            return self.data.orderedRemove(0);
         }
 
         /// Clears the entire stack
@@ -54,31 +48,37 @@ pub fn Stack(comptime T: type) type {
         pub inline fn size(self: *Self) usize {
             return self.data.items.len;
         }
+
+        /// Returns the front of the queue without removing it
+        pub inline fn front(self: *Self) !T {
+            if (self.size() < 1) return error.QueueEmpty;
+            return self.data.items[0];
+        }
     };
 }
 
-test "Stack" {
+test "Queue" {
     const t = std.testing;
     const allocator = t.allocator;
 
-    var stack = Stack(i32).init(allocator);
-    defer stack.deinit();
+    var queue = Queue(i32).init(allocator);
+    defer queue.deinit();
 
-    try stack.add(1);
-    try stack.add(2);
-    try stack.add(3);
+    try queue.add(1);
+    try queue.add(2);
+    try queue.add(3);
 
-    try t.expectEqual(3, stack.size());
+    try t.expectEqual(3, queue.size());
 
-    try t.expectEqual(3, stack.top());
+    try t.expectEqual(1, queue.front());
 
-    const popped = stack.pop() catch unreachable;
+    const popped = queue.pop() catch unreachable;
 
-    try t.expectEqual(3, popped);
-    try t.expectEqual(2, stack.size());
+    try t.expectEqual(1, popped);
+    try t.expectEqual(2, queue.size());
 
-    stack.clear();
-    try t.expectEqual(0, stack.size());
+    queue.clear();
+    try t.expectEqual(0, queue.size());
 }
 
 test "from" {
@@ -86,20 +86,22 @@ test "from" {
     const allocator = t.allocator;
 
     var al = std.ArrayList(i32).init(allocator);
-    // We do not defer a deinit here, as stack takes ownership
+    // We do not defer a deinit here, as queue takes ownership
 
     try al.append(1);
-    try al.append(1);
-    try al.append(1);
+    try al.append(2);
+    try al.append(3);
 
     try t.expectEqual(3, al.items.len);
 
-    var stack = Stack(i32).from_arraylist(al);
-    defer stack.deinit();
+    var queue = Queue(i32).from_arraylist(al);
+    defer queue.deinit();
 
-    try t.expectEqual(3, stack.size());
+    try t.expectEqual(3, queue.size());
 
-    try stack.add(4);
+    try queue.add(4);
 
-    try t.expectEqual(4, stack.size());
+    try t.expectEqual(4, queue.size());
+
+    try t.expectEqual(1, queue.front());
 }
