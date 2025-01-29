@@ -9,13 +9,15 @@ All should be generic
 
 ```zig
 const std = @import("std");
+const zdsa =  @import("zdsa");
+const Stack = zdsa.Stack;
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
-    var stack = try Stack(i32).init(allocator);
+    var stack = Stack(i32).init(allocator);
     defer stack.deinit();
 
     try stack.add(1);
