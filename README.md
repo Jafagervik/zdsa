@@ -35,6 +35,7 @@ For more, see tests or example folders
 - [x] Stack
 - [x] Queue
 - [x] Dequeue
+- [x] Singly Linked List
 - [ ] Tree
 
 ## Install (Per 0.14 beta)
@@ -42,8 +43,10 @@ For more, see tests or example folders
 Run this command in the parent directory of your project
 
 ```sh
-zig fetch --save git+https://github.com/Jafagervik/zdsa.git
+zig fetch --save https://github.com/Jafagervik/zdsa/tarball/v0.3.0
 ```
+
+Or alternatively use master or another version
 
 Then add these lines to build.zig before b.installArtifact(exe)
 
