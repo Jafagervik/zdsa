@@ -34,7 +34,7 @@ For more, see tests or example folders
 
 - [x] Stack
 - [x] Queue
-- [ ] Dequeue
+- [x] Dequeue
 - [ ] Tree
 
 ## Install (Per 0.14 beta)
